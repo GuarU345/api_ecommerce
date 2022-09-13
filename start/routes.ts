@@ -51,3 +51,4 @@ Route.post('crtod','OrderDetailsController.createOrderDetail')
 
 //MarketCar
 Route.post('crtmktcar','MarketCarsController.createMarketCar')
+Route.get('getmk/:id','MarketCarsController.getMarketCar')

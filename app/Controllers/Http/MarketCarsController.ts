@@ -2,6 +2,7 @@
 
 import Database from "@ioc:Adonis/Lucid/Database"
 import MarketCar from "App/Models/MarketCar"
+import User from "App/Models/User"
 
 export default class MarketCarsController {
     public async createMarketCar({request,response}){
@@ -31,4 +32,10 @@ export default class MarketCarsController {
         return response.json({marketcar})
 
     }
+    public async getMarketCar({params}){
+        User.findOrFail(params.id)
+        const query=await Database.from('market_cars as mk').select('p.id','mk.total','mk.quantity').innerJoin('products as p','p.id','mk.product_id').innerJoin('users as u','u.id','mk.user_id').where('user_id','=',+params.id)
+        return query
+    }
+    
 }
