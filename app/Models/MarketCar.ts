@@ -2,10 +2,10 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class MarketCar extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public market_id: number
 
   @column()
-  public product_id
+  public prod_id
 
   @column()
   public user_id

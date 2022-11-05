@@ -3,13 +3,13 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public product_id:number
 
   @column()
   public product_name
 
   @column()
-  public quantity
+  public stock
 
   @column()
   public price
@@ -18,5 +18,5 @@ export default class Product extends BaseModel {
   public image
 
   @column()
-  public category_id
+  public categ_id
 }

@@ -32,6 +32,6 @@ export default class UsersController {
       public async traerID({auth,response}: HttpContextContract){
         const traer=await auth.use('api').authenticate()
         console.log(auth.use('api').user!)
-        return response.json({traer})
+        return response.json(traer)
       }
 }

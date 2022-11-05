@@ -2,12 +2,12 @@
 
 import Database from "@ioc:Adonis/Lucid/Database"
 import MarketCar from "App/Models/MarketCar"
-import User from "App/Models/User"
+
 
 export default class MarketCarsController {
     public async createMarketCar({request,response}){
         
-        const prod=request.input(['product_id'])
+        const prod=request.input(['prod_id'])
         const user=request.input(['user_id'])
         const total=request.input(['total'])
         const cant=request.input(['quantity'])
@@ -23,19 +23,35 @@ export default class MarketCarsController {
         // }
 
         const marketcar=new MarketCar()
-        marketcar.product_id=prod
+        marketcar.prod_id=prod
         marketcar.user_id=user
         marketcar.total=total
         marketcar.quantity=cant
 
         marketcar.save()
-        return response.json({marketcar})
+        return response.json(marketcar)
 
     }
-    public async getMarketCar({params}){
-        User.findOrFail(params.id)
-        const query=await Database.from('market_cars as mk').select('p.id','mk.total','mk.quantity').innerJoin('products as p','p.id','mk.product_id').innerJoin('users as u','u.id','mk.user_id').where('user_id','=',+params.id)
-        return query
+    public async getMarketCar({params,response}){
+        const query=await Database.from('market_cars as mk').select('p.product_id','p.product_name','p.image','p.price','mk.total','mk.quantity','mk.market_id').innerJoin('products as p','p.product_id','mk.prod_id').innerJoin('users as u','u.id','mk.user_id').where('user_id','=',+params.id)
+          query.forEach(elemento=>{
+            const data=elemento
+            return response.ok(data)
+          })            
+    }
+    public async delProdToCar({params,response}){
+        const prod=await MarketCar.findOrFail(params.id)
+
+        prod.delete()
+
+        response.json(prod)
+    }
+    public async getTotalInCar({params,response}){
+        const query=await Database.from('market_cars as mk').select().innerJoin('products as p','p.product_id','mk.prod_id').innerJoin('users as u','u.id','mk.user_id').where('user_id','=',+params.id).sum('total')
+        query.forEach(value=>{
+            const total=value
+            return response.json(total)
+        })
     }
     
 }

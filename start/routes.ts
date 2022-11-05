@@ -27,11 +27,15 @@ Route.get('/', async () => {
 //Auth
 Route.post('register','UsersController.register')
 Route.post('login','UsersController.login')
+Route.get('getuser','UsersController.traerID')
 
 //Products
 
 Route.post('crtprod','ProductsController.createProduct')
 Route.put('updprod/:id','ProductsController.updateProduct')
+Route.get('getprod/:id','ProductsController.getProductById')
+Route.post('getprodname','ProductsController.getProductsByName')
+Route.post('getprodprice','ProductsController.getProductsByPrice')
 Route.delete('delprod/:id','ProductsController.deleteProduct')
 Route.get('getprods','ProductsController.getProducts')
 Route.get('getprodsforcateg/:id','ProductsController.getProductsForCategory')
@@ -52,3 +56,5 @@ Route.post('crtod','OrderDetailsController.createOrderDetail')
 //MarketCar
 Route.post('crtmktcar','MarketCarsController.createMarketCar')
 Route.get('getmk/:id','MarketCarsController.getMarketCar')
+Route.get('gettotmk/:id','MarketCarsController.getTotalInCar')
+Route.delete('delprodoncar/:id','MarketCarsController.delProdToCar')
