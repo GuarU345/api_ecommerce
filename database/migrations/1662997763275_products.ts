@@ -7,9 +7,9 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('product_id')
       table.string('product_name')
-      table.integer('quantity')
+      table.integer('stock')
       table.decimal('price')
-      table.binary('image')
+      table.string('image',500)
       table.integer('categ_id').unsigned().references('category_id').inTable('categories')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
