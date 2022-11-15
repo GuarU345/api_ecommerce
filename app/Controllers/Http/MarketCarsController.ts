@@ -48,10 +48,7 @@ export default class MarketCarsController {
     }
     public async getTotalInCar({params,response}){
         const query=await Database.from('market_cars as mk').select().innerJoin('products as p','p.product_id','mk.prod_id').innerJoin('users as u','u.id','mk.user_id').where('user_id','=',+params.id).sum('total')
-        query.forEach(value=>{
-            const total=value
-            return response.json(total)
-        })
+        return response.json(query)
     }
     
 }
