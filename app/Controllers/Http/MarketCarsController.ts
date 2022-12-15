@@ -34,10 +34,7 @@ export default class MarketCarsController {
     }
     public async getMarketCar({params,response}){
         const query=await Database.from('market_cars as mk').select('p.product_id','p.product_name','p.image','p.price','mk.total','mk.quantity','mk.market_id').innerJoin('products as p','p.product_id','mk.prod_id').innerJoin('users as u','u.id','mk.user_id').where('user_id','=',+params.id)
-          query.forEach(elemento=>{
-            const data=elemento
-            return response.ok(data)
-          })            
+        return query        
     }
     public async delProdToCar({params,response}){
         const prod=await MarketCar.findOrFail(params.id)

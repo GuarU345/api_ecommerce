@@ -22,7 +22,12 @@ export default class ProductsController {
 
         prod.save()
 
-        return response.json(prod)
+        return response.json
+        ({
+            'status':200,
+            'message':'created successfully',
+            'product':prod
+        })
     }
     public async updateProduct({request,response,params}){
         const prod=await Product.findOrFail(params.id)
@@ -55,14 +60,13 @@ export default class ProductsController {
     public async getProductById({params,response}){
         
         const query=await Database.from('products as p').select('*').where('p.product_id','=',+params.id)
-        query.forEach(value => {
-            const resp=value
-            try {
-                return response.ok(resp)
-            } catch (error) {
-                response.badRequest({message:"no se encuentra en stock"})
-            }
-        });
+        if(query==null){
+            return response.json
+            ({
+                'status':403,
+                'message':'not in stock'
+            })
+        }
     }
     public async getProductsForCategory({params,response}){
         if(params.id==0){
