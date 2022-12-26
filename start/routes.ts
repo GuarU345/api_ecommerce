@@ -52,6 +52,7 @@ Route.get('getotalorder/:id','OrdersController.getTotalOrder')
 
 //OrderDetail
 Route.post('crtod','OrderDetailsController.createOrderDetail')
+Route.get('getod','OrderDetailsController.getLastOrderDetail')
 
 //MarketCar
 Route.post('crtmktcar','MarketCarsController.createMarketCar')
