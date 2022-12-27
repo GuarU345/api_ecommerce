@@ -32,7 +32,7 @@ export default class MarketCarsController {
         return response.json(marketcar)
 
     }
-    public async getMarketCar({params,response}){
+    public async getMarketCar({params}){
         const query=await Database.from('market_cars as mk').select('p.product_id','p.product_name','p.image','p.price','mk.total','mk.quantity','mk.market_id').innerJoin('products as p','p.product_id','mk.prod_id').innerJoin('users as u','u.id','mk.user_id').where('user_id','=',+params.id)
         return query        
     }
@@ -43,9 +43,14 @@ export default class MarketCarsController {
 
         response.json(prod)
     }
-    public async deleteNextToBuy(){
-        
 
+    public async deleteNextToBuy(){
+        const prod=await Database.from('market_cars as mk').select('*')
+        
+        prod.forEach(async element=>{
+            const query=await MarketCar.findOrFail(element.market_id)
+            query.delete()
+        })
     }
 
     public async getTotalInCar({params,response}){

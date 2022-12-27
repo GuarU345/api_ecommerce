@@ -1,5 +1,4 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
 import Database from "@ioc:Adonis/Lucid/Database"
 import OrderDetail from "App/Models/OrderDetail"
 
@@ -20,9 +19,9 @@ export default class OrderDetailsController {
         return response.json(od)
     }
 
-    public async getLastOrderDetail({response}){
-        const query=await Database.from('order_details as od').select('p.product_name','od.buy_quantity','od.total').innerJoin('products as p','p.product_id','od.prod_id').innerJoin('orders as o','o.order_id','od.ord_id').orderBy('od.detail_id','desc')
+    public async getLastOrderDetail({request}){
+        const lstorder=request.input(['lstorder'])
+        const query=await Database.from('order_details as od').select('p.product_name','od.buy_quantity','od.total').innerJoin('products as p','p.product_id','od.prod_id').innerJoin('orders as o','o.order_id','od.ord_id').where('ord_id','=',lstorder)
         return query
-
     }
 }

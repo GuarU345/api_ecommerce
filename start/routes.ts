@@ -52,10 +52,11 @@ Route.get('getotalorder/:id','OrdersController.getTotalOrder')
 
 //OrderDetail
 Route.post('crtod','OrderDetailsController.createOrderDetail')
-Route.get('getod','OrderDetailsController.getLastOrderDetail')
+Route.post('getod','OrderDetailsController.getLastOrderDetail')
 
 //MarketCar
 Route.post('crtmktcar','MarketCarsController.createMarketCar')
 Route.get('getmk/:id','MarketCarsController.getMarketCar')
 Route.get('gettotmk/:id','MarketCarsController.getTotalInCar')
 Route.delete('delprodoncar/:id','MarketCarsController.delProdToCar')
+Route.delete('delmk','MarketCarsController.deleteNextToBuy')
